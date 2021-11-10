@@ -12,8 +12,3 @@ CREATE TABLE `progression_npc_vendor` (
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
-
-INSERT INTO `progression_npc_vendor` (`entry`, `item`, `maxcount`, `incrtime`, `ExtendedCost`)
-SELECT `entry`, `item`, `maxcount`, `incrtime`, `ExtendedCost` FROM npc_vendor WHERE `Item` > 0;
-
-UPDATE `progression_npc_vendor` SET `min_patch`=20;

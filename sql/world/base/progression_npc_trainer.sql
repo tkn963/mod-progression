@@ -13,8 +13,3 @@ CREATE TABLE `progression_npc_trainer` (
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
-
-INSERT INTO `progression_npc_trainer` (`ID`, `SpellID`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`, `ReqLevel`)
-SELECT `ID`, `SpellID`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`, `ReqLevel` FROM npc_trainer WHERE `ID` > 0 AND `SpellID` > 0;
-
-UPDATE `progression_npc_trainer` SET `min_patch`=20;
