@@ -43,10 +43,10 @@ class ProgressionVendor : public WorldScript
             {
                 Field* fields       = result->Fetch();
                 uint32 entry        = fields[0].GetUInt32();
-                uint32 item         = fields[2].GetUInt32();
-                uint32 maxCount     = fields[3].GetUInt32();
-                uint32 incrtime     = fields[4].GetUInt32();
-                uint32 extendedCost = fields[5].GetUInt32();
+                uint32 item         = fields[1].GetUInt32();
+                uint32 maxCount     = fields[2].GetUInt32();
+                uint32 incrtime     = fields[3].GetUInt32();
+                uint32 extendedCost = fields[4].GetUInt32();
 
                 sObjectMgr->RemoveVendorItem(entry, item, false);
                 sObjectMgr->AddVendorItem(entry, item, maxCount, incrtime, extendedCost, false);
