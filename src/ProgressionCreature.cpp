@@ -9,7 +9,8 @@ class ProgressionCreature : public WorldScript
         void OnStartup() override
         {
             DeleteCreatureData();
-            CheckCreatureData();
+            SetCreatureData();
+            SetCreatureTemplateData();
         }
 
     private:
@@ -17,7 +18,7 @@ class ProgressionCreature : public WorldScript
 
         void DeleteCreatureData()
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT guid FROM progression_creature WHERE patch > %u", progression->getPatchId());
+            QueryResult result = WorldDatabase.PQuery("SELECT guid FROM progression_creature WHERE %u NOT BETWEEN min_patch AND max_patch", progression->getPatchId());
 
             if (!result)
                 return;
@@ -35,9 +36,9 @@ class ProgressionCreature : public WorldScript
             LOG_INFO("server.loading", ">> Removed %u creatures", count);
         }
 
-        void CheckCreatureData()
+        void SetCreatureData()
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT guid, map, position_x, position_y, position_z, orientation, spawntimesecs FROM progression_creature a WHERE patch = (SELECT max(patch) FROM progression_creature b WHERE a.guid = b.guid && patch <= %u)", progression->getPatchId());
+            QueryResult result = WorldDatabase.PQuery("SELECT guid, map, position_x, position_y, position_z, orientation, spawntimesecs FROM progression_creature WHERE %u BETWEEN min_patch AND max_patch", progression->getPatchId());
 
             if (!result)
                 return;
@@ -56,12 +57,8 @@ class ProgressionCreature : public WorldScript
 
                 const CreatureData* creatureData = sObjectMgr->GetCreatureData(guid);
 
-                if (creatureData->mapid != mapId ||
-                    creatureData->posX != position_x ||
-                    creatureData->posY != position_y ||
-                    creatureData->posZ != position_z ||
-                    creatureData->orientation != orientation ||
-                    creatureData->spawntimesecs != spawnTime)
+                if (creatureData->mapid != mapId || creatureData->posX != position_x || creatureData->posY != position_y ||
+                    creatureData->posZ != position_z || creatureData->orientation != orientation || creatureData->spawntimesecs != spawnTime)
                 {
                     sObjectMgr->DeleteCreatureData(guid);
                     sObjectMgr->AddCreData(creatureData->id, mapId, position_x, position_y, position_z, orientation, spawnTime);
@@ -69,7 +66,44 @@ class ProgressionCreature : public WorldScript
                 }
             } while (result->NextRow());
 
-            LOG_INFO("server.loading", ">> Updated %u creatures", count);
+            LOG_INFO("server.loading", ">> Updated %u creature spawns", count);
+        }
+
+        void SetCreatureTemplateData()
+        {
+            QueryResult result = WorldDatabase.PQuery("SELECT entry, name, subname, minlevel, maxlevel, rank FROM progression_creature_template WHERE %u BETWEEN min_patch AND max_patch", progression->getPatchId());
+
+            if (!result)
+                return;
+
+            uint32 count = 0;
+            do
+            {
+                Field* fields       = result->Fetch();
+                uint32 entry        = fields[0].GetUInt32();
+                std::string name    = fields[1].GetString();
+                std::string subname = fields[2].GetString();
+                uint32 minlevel     = fields[3].GetUInt32();
+                uint32 maxlevel     = fields[4].GetUInt32();
+                uint32 rank         = fields[5].GetUInt32();
+
+                CreatureTemplate* creature = const_cast<CreatureTemplate*>(&sObjectMgr->GetCreatureTemplates()->at(entry));
+
+                if (!creature)
+                    continue;
+
+                if (creature->Name != name || creature->SubName != subname || creature->minlevel != minlevel || creature->maxlevel != maxlevel || creature->rank != rank)
+                {
+                    creature->Name = name;
+                    creature->SubName = subname;
+                    creature->minlevel = minlevel;
+                    creature->maxlevel = maxlevel;
+                    creature->rank = rank;
+                    ++count;
+                }
+            } while (result->NextRow());
+
+            LOG_INFO("server.loading", ">> Updated %u creature templates", count);
         }
 };
 

@@ -2,6 +2,10 @@ void AddProgressionLoginMessageScripts();
 void AddProgressionRestrictionsScripts();
 
 void AddProgressionCreatureScripts();
+void AddProgressionEventScripts();
+void AddProgressionGameObjectScripts();
+void AddProgressionTrainerScripts();
+void AddProgressionVendorScripts();
 
 void Addmod_progressionScripts()
 {
@@ -9,4 +13,8 @@ void Addmod_progressionScripts()
     AddProgressionRestrictionsScripts();
 
     AddProgressionCreatureScripts();
+    AddProgressionEventScripts();
+    AddProgressionGameObjectScripts();
+    AddProgressionTrainerScripts();
+    AddProgressionVendorScripts();
 }
