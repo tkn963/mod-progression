@@ -8,6 +8,7 @@ void AddProgressionEventScripts();
 void AddProgressionGameObjectScripts();
 void AddProgressionItemScripts();
 void AddProgressionLootScripts();
+void AddProgressionQuestScripts();
 void AddProgressionTrainerScripts();
 void AddProgressionTransportScripts();
 void AddProgressionVendorScripts();
@@ -24,6 +25,7 @@ void Addmod_progressionScripts()
     AddProgressionGameObjectScripts();
     AddProgressionItemScripts();
     AddProgressionLootScripts();
+    AddProgressionQuestScripts();
     AddProgressionTrainerScripts();
     AddProgressionTransportScripts();
     AddProgressionVendorScripts();
