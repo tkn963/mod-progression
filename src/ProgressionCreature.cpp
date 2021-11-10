@@ -23,17 +23,13 @@ class ProgressionCreature : public WorldScript
             if (!result)
                 return;
 
-            uint32 count = 0;
             do
             {
                 Field* fields = result->Fetch();
                 uint32 guid   = fields[0].GetUInt32();
 
                 sObjectMgr->DeleteCreatureData(guid);
-                ++count;
             } while (result->NextRow());
-
-            LOG_INFO("server.loading", ">> Removed %u creatures", count);
         }
 
         void SetCreatureData()
@@ -43,7 +39,6 @@ class ProgressionCreature : public WorldScript
             if (!result)
                 return;
 
-            uint32 count = 0;
             do
             {
                 Field* fields      = result->Fetch();
@@ -65,11 +60,8 @@ class ProgressionCreature : public WorldScript
                 {
                     sObjectMgr->DeleteCreatureData(guid);
                     sObjectMgr->AddCreData(creatureData->id, mapId, position_x, position_y, position_z, orientation, spawnTime);
-                    ++count;
                 }
             } while (result->NextRow());
-
-            LOG_INFO("server.loading", ">> Updated %u creature spawns", count);
         }
 
         void SetCreatureTemplateData()
@@ -80,7 +72,6 @@ class ProgressionCreature : public WorldScript
             if (!result)
                 return;
 
-            uint32 count = 0;
             do
             {
                 Field* fields       = result->Fetch();
@@ -96,18 +87,21 @@ class ProgressionCreature : public WorldScript
                 if (!creature)
                     continue;
 
-                if (creature->Name != name || creature->SubName != subname || creature->minlevel != minlevel || creature->maxlevel != maxlevel || creature->rank != rank)
-                {
+                if (creature->Name != name)
                     creature->Name = name;
-                    creature->SubName = subname;
-                    creature->minlevel = minlevel;
-                    creature->maxlevel = maxlevel;
-                    creature->rank = rank;
-                    ++count;
-                }
-            } while (result->NextRow());
 
-            LOG_INFO("server.loading", ">> Updated %u creature templates", count);
+                if (creature->SubName != subname)
+                    creature->SubName = subname;
+
+                if (creature->minlevel != minlevel)
+                    creature->minlevel = minlevel;
+
+                if (creature->maxlevel != maxlevel)
+                    creature->maxlevel = maxlevel;
+
+                if (creature->rank != rank)
+                    creature->rank = rank;
+            } while (result->NextRow());
         }
 };
 

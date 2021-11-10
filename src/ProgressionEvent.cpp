@@ -21,7 +21,6 @@ class ProgressionEvent : public WorldScript
             if (!result)
                 return;
 
-            uint32 count = 0;
             do
             {
                 Field* fields     = result->Fetch();
@@ -33,11 +32,7 @@ class ProgressionEvent : public WorldScript
                 gameEvent.at(eventEntry).end       = time_t("2000-01-01 14:00:00");
                 gameEvent.at(eventEntry).occurence = 5184000;
                 gameEvent.at(eventEntry).length    = 1;
-
-                ++count;
             } while (result->NextRow());
-
-            LOG_INFO("server.loading", ">> Disabled %u events", count);
         }
 };
 

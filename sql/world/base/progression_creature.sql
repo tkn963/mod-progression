@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `progression_creature`;
 CREATE TABLE `progression_creature` (
-    `guid` INT(10) UNSIGNED NOT NULL,
+    `guid` INT(10) UNSIGNED NOT NULL COMMENT 'Global Unique Identifier',
     `min_patch` INT(2) UNSIGNED NOT NULL DEFAULT '0',
     `max_patch` INT(2) UNSIGNED NOT NULL DEFAULT '20',
 	`id` MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Creature Identifier',

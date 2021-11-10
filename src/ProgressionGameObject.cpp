@@ -22,17 +22,13 @@ class ProgressionGameObject : public WorldScript
             if (!result)
                 return;
 
-            uint32 count = 0;
             do
             {
                 Field* fields = result->Fetch();
                 uint32 guid   = fields[0].GetUInt32();
 
                 sObjectMgr->DeleteGOData(guid);
-                ++count;
             } while (result->NextRow());
-
-            LOG_INFO("server.loading", ">> Removed %u objects", count);
         }
 
         void CheckGameObjectData()
@@ -42,7 +38,6 @@ class ProgressionGameObject : public WorldScript
             if (!result)
                 return;
 
-            uint32 count = 0;
             do
             {
                 Field* fields      = result->Fetch();
@@ -67,11 +62,8 @@ class ProgressionGameObject : public WorldScript
                 {
                     sObjectMgr->DeleteGOData(guid);
                     sObjectMgr->AddGOData(gameObjectData->id, mapId, position_x, position_y, position_z, orientation, spawnTime, rotation0, rotation1, rotation2, rotation3);
-                    ++count;
                 }
             } while (result->NextRow());
-
-            LOG_INFO("server.loading", ">> Updated %u objects", count);
         }
 };
 
