@@ -8,15 +8,15 @@ class ProgressionCreature : public WorldScript
 
         void OnStartup() override
         {
-            DeleteCreatureData();
-            SetCreatureData();
-            SetCreatureTemplateData();
+            DeleteCreatures();
+            UpdateCreatures();
+            UpdateCreatureTemplates();
         }
 
     private:
         Progression* progression = new Progression();
 
-        void DeleteCreatureData()
+        void DeleteCreatures()
         {
             QueryResult result = WorldDatabase.PQuery("SELECT guid FROM progression_creature WHERE %u NOT BETWEEN min_patch AND max_patch", progression->getPatchId());
 
@@ -32,7 +32,7 @@ class ProgressionCreature : public WorldScript
             } while (result->NextRow());
         }
 
-        void SetCreatureData()
+        void UpdateCreatures()
         {
             QueryResult result = WorldDatabase.PQuery("SELECT guid, map, position_x, position_y, position_z, orientation, spawntimesecs FROM progression_creature WHERE %u BETWEEN min_patch AND max_patch", progression->getPatchId());
 
@@ -64,7 +64,7 @@ class ProgressionCreature : public WorldScript
             } while (result->NextRow());
         }
 
-        void SetCreatureTemplateData()
+        void UpdateCreatureTemplates()
         {
             QueryResult result = WorldDatabase.PQuery("SELECT entry, name, subname, minlevel, maxlevel, rank FROM progression_creature_template a "
                                                       "WHERE patch=(SELECT max(patch) FROM progression_creature_template b WHERE a.entry=b.entry && patch <= %u)", progression->getPatchId());

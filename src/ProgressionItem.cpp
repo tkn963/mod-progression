@@ -8,13 +8,13 @@ class ProgressionItem : public WorldScript
 
         void OnStartup() override
         {
-            SetItemTemplate();
+            UpdateItemTemplates();
         }
 
     private:
         Progression* progression = new Progression();
 
-        void SetItemTemplate()
+        void UpdateItemTemplates()
         {
             QueryResult result = WorldDatabase.PQuery("SELECT entry FROM progression_item_template a "
                                                       "WHERE patch=(SELECT max(patch) FROM item_template b WHERE a.entry=b.entry && patch <= %u)",

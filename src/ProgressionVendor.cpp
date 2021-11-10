@@ -9,7 +9,7 @@ class ProgressionVendor : public WorldScript
         void OnStartup() override
         {
             DeleteVendorItems();
-            SetVendorItems();
+            AddVendorItems();
         }
 
     private:
@@ -32,7 +32,7 @@ class ProgressionVendor : public WorldScript
             } while (result->NextRow());
         }
 
-        void SetVendorItems()
+        void AddVendorItems()
         {
             QueryResult result = WorldDatabase.PQuery("SELECT entry, item, maxcount, incrtime, ExtendedCost FROM progression_npc_vendor WHERE %u BETWEEN min_patch AND max_patch", progression->getPatchId());
 

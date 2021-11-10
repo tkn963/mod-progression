@@ -8,14 +8,14 @@ class ProgressionGameObject : public WorldScript
 
         void OnStartup() override
         {
-            DeleteGameObjectData();
-            CheckGameObjectData();
+            DeleteGameObjects();
+            UpdateGameObjects();
         }
 
     private:
         Progression* progression = new Progression();
 
-        void DeleteGameObjectData()
+        void DeleteGameObjects()
         {
             QueryResult result = WorldDatabase.PQuery("SELECT guid FROM progression_gameobject WHERE %u NOT BETWEEN min_patch AND max_patch", progression->getPatchId());
 
@@ -31,7 +31,7 @@ class ProgressionGameObject : public WorldScript
             } while (result->NextRow());
         }
 
-        void CheckGameObjectData()
+        void UpdateGameObjects()
         {
             QueryResult result = WorldDatabase.PQuery("SELECT guid, map, position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecs FROM progression_gameobject WHERE %u BETWEEN min_patch AND max_patch", progression->getPatchId());
 
