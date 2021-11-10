@@ -57,6 +57,9 @@ class ProgressionCreature : public WorldScript
 
                 const CreatureData* creatureData = sObjectMgr->GetCreatureData(guid);
 
+                if (!creatureData)
+                    continue;
+
                 if (creatureData->mapid != mapId || creatureData->posX != position_x || creatureData->posY != position_y ||
                     creatureData->posZ != position_z || creatureData->orientation != orientation || creatureData->spawntimesecs != spawnTime)
                 {
