@@ -9,7 +9,7 @@ class ProgressionGameObject : public WorldScript
         void OnStartup() override
         {
             DeleteGameObjectData();
-            //CheckGameObjectData();
+            CheckGameObjectData();
         }
 
     private:
