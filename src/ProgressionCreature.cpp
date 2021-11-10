@@ -74,7 +74,8 @@ class ProgressionCreature : public WorldScript
 
         void SetCreatureTemplateData()
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT entry, name, subname, minlevel, maxlevel, rank FROM progression_creature_template WHERE %u BETWEEN min_patch AND max_patch", progression->getPatchId());
+            QueryResult result = WorldDatabase.PQuery("SELECT entry, name, subname, minlevel, maxlevel, rank FROM progression_creature_template a "
+                                                      "WHERE patch=(SELECT max(patch) FROM progression_creature_template b WHERE a.entry=b.entry && patch <= %u)", progression->getPatchId());
 
             if (!result)
                 return;
