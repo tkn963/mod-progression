@@ -7,6 +7,8 @@ SELECT `entry`, `BuyPrice`, `SellPrice`, `ItemLevel`, `RequiredLevel`, `spellid_
 1132, 2414, 5655, 5656, 5665, 5668, 5864, 5872, 5873, 8563, 8588, 8591, 8592, 8595, 8629, 8631, 8632, 13321, 13322, 13331, 13332, 13333, 13334, 15277, 15290, 18766, 18767, 18772, 18773, 18774, 18776, 18777, 18778, 18785, 18786, 18787, 18788, 18789, 18790, 18791, 18793, 18794, 18795, 18796, 18797, 18798, 18902, 29465, 29466, 29467, 29468, 29469, 29470, 29471, 29472, 46099, 46100, 46308, 47100, 47101
 );
 
+-- Mount price, level requirement and be usable like in vanilla
+-- Apprentice
 UPDATE `progression_item_template` SET `BuyPrice`=80000, `SellPrice`=0, `ItemLevel`=40, `RequiredLevel`=40, `spellcharges_1`=0, `spellcategory_1`=330, `spellcategorycooldown_1`=3000, `spellid_2`=0, `spelltrigger_2`=0, `description`='' WHERE `entry` IN (1132, 2414, 5655, 5656, 5665, 5668, 5864, 5872, 5873, 8563, 8588, 8591, 8592, 8595, 8629, 8631, 8632, 13321, 13322, 13331, 13332, 13333, 15277, 15290, 46099, 46100, 46308, 47100);
 UPDATE `progression_item_template` SET `spellid_1`=580 WHERE `entry`=1132;
 UPDATE `progression_item_template` SET `spellid_1`=472 WHERE `entry`=2414;
