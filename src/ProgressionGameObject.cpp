@@ -27,13 +27,14 @@ class ProgressionGameObject : public WorldScript
                 Field* fields = result->Fetch();
                 uint32 guid   = fields[0].GetUInt32();
 
-                sObjectMgr->DeleteGOData(guid);
+                if (sObjectMgr->GetGOData(guid))
+                    sObjectMgr->DeleteGOData(guid);
             } while (result->NextRow());
         }
 
         void UpdateGameObjects()
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT guid, map, position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecs FROM progression_gameobject WHERE %u BETWEEN min_patch AND max_patch", progression->getPatchId());
+            QueryResult result = WorldDatabase.PQuery("SELECT guid, id, map, position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecs FROM progression_gameobject WHERE %u BETWEEN min_patch AND max_patch", progression->getPatchId());
 
             if (!result)
                 return;
@@ -42,16 +43,17 @@ class ProgressionGameObject : public WorldScript
             {
                 Field* fields      = result->Fetch();
                 uint32 guid        = fields[0].GetUInt32();
-                uint32 mapId       = fields[1].GetUInt32();
-                float position_x   = fields[2].GetFloat();
-                float position_y   = fields[3].GetFloat();
-                float position_z   = fields[4].GetFloat();
-                float orientation  = fields[5].GetFloat();
-                float rotation0    = fields[6].GetFloat();
-                float rotation1    = fields[7].GetFloat();
-                float rotation2    = fields[8].GetFloat();
-                float rotation3    = fields[9].GetFloat();
-                uint32 spawnTime   = fields[10].GetUInt32();
+                uint32 id          = fields[1].GetUInt32();
+                uint32 mapId       = fields[2].GetUInt32();
+                float position_x   = fields[3].GetFloat();
+                float position_y   = fields[4].GetFloat();
+                float position_z   = fields[5].GetFloat();
+                float orientation  = fields[6].GetFloat();
+                float rotation0    = fields[7].GetFloat();
+                float rotation1    = fields[8].GetFloat();
+                float rotation2    = fields[9].GetFloat();
+                float rotation3    = fields[10].GetFloat();
+                uint32 spawnTime   = fields[11].GetUInt32();
 
                 const GameObjectData* gameObjectData = sObjectMgr->GetGOData(guid);
 
@@ -60,8 +62,11 @@ class ProgressionGameObject : public WorldScript
                     gameObjectData->rotation.y != rotation1 || gameObjectData->rotation.z != rotation2 || gameObjectData->rotation.w != rotation3 ||
                     gameObjectData->spawntimesecs != spawnTime)
                 {
-                    sObjectMgr->DeleteGOData(guid);
-                    sObjectMgr->AddGOData(gameObjectData->id, mapId, position_x, position_y, position_z, orientation, spawnTime, rotation0, rotation1, rotation2, rotation3);
+                    if (gameObjectData)
+                        sObjectMgr->DeleteGOData(guid);
+
+                    if (gameObjectData->id == id)
+                        sObjectMgr->AddGOData(id, mapId, position_x, position_y, position_z, orientation, spawnTime, rotation0, rotation1, rotation2, rotation3);
                 }
             } while (result->NextRow());
         }
