@@ -20,8 +20,3 @@ CREATE TABLE `progression_gameobject` (
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
-
-INSERT INTO `progression_gameobject` (`guid`, `id`, `map`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`)
-SELECT `guid`, `id`, `map`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs` FROM gameobject;
-
-UPDATE `progression_gameobject` SET `min_patch`=20;

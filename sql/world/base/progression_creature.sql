@@ -15,8 +15,3 @@ CREATE TABLE `progression_creature` (
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
-
-INSERT INTO `progression_creature` (`guid`, `id`, `map`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`)
-SELECT `guid`, `id`, `map`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs` FROM creature;
-
-UPDATE `progression_creature` SET `min_patch`=20;

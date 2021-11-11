@@ -8,8 +8,3 @@ CREATE TABLE `progression_game_event` (
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
-
-INSERT INTO `progression_game_event` (`eventEntry`)
-SELECT `eventEntry` FROM game_event;
-
-UPDATE `progression_game_event` SET `min_patch`=20;
