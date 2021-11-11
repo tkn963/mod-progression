@@ -10,6 +10,7 @@ class ProgressionGameObject : public WorldScript
         {
             DeleteGameObjects();
             UpdateGameObjects();
+            UpdateGameobjectTemplates();
         }
 
     private:
@@ -68,6 +69,31 @@ class ProgressionGameObject : public WorldScript
                     if (gameObjectData->id == id)
                         sObjectMgr->AddGOData(id, mapId, position_x, position_y, position_z, orientation, spawnTime, rotation0, rotation1, rotation2, rotation3);
                 }
+            } while (result->NextRow());
+        }
+
+        void UpdateGameobjectTemplates()
+        {
+            QueryResult result = WorldDatabase.PQuery("SELECT entry, name FROM progression_gameobject_template a "
+                                                      "WHERE patch=(SELECT max(patch) FROM progression_gameobject_template b WHERE a.entry=b.entry && patch <= %u)",
+                                                      progression->getPatchId());
+
+            if (!result)
+                return;
+
+            do
+            {
+                Field*fields     = result->Fetch();
+                uint32 entry     = fields[0].GetUInt32();
+                std::string name = fields[1].GetString();
+
+                GameObjectTemplate* gameobject = const_cast<GameObjectTemplate*>(&sObjectMgr->GetGameObjectTemplates()->at(entry));
+
+                if (!gameobject)
+                    continue;
+
+                if (gameobject->name != name)
+                    gameobject->name = name;
             } while (result->NextRow());
         }
 };
