@@ -8,7 +8,7 @@ class ProgressionExpansion : public WorldScript
 
         void OnAfterConfigLoad(bool /*reload*/) override
         {
-            if (sConfigMgr->GetBoolDefault("Progression.Expansion", 0))
+            if (sConfigMgr->GetBoolDefault("Progression.Expansion", 1))
                 sWorld->setIntConfig(WorldIntConfigs::CONFIG_EXPANSION, progression->getExpansion());
         }
 
