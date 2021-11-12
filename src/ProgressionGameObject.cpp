@@ -66,8 +66,7 @@ class ProgressionGameObject : public WorldScript
                     if (gameObjectData)
                         sObjectMgr->DeleteGOData(guid);
 
-                    if (gameObjectData->id == id)
-                        sObjectMgr->AddGOData(id, mapId, position_x, position_y, position_z, orientation, spawnTime, rotation0, rotation1, rotation2, rotation3);
+                    sObjectMgr->AddGOData(id, mapId, position_x, position_y, position_z, orientation, spawnTime, rotation0, rotation1, rotation2, rotation3);
                 }
             } while (result->NextRow());
         }
