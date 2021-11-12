@@ -4,7 +4,7 @@
 class ProgressionLoginMessage : public PlayerScript
 {
     public:
-    ProgressionLoginMessage() : PlayerScript("ProgressionLoginMessage") {}
+        ProgressionLoginMessage() : PlayerScript("ProgressionLoginMessage") {}
 
         void OnLogin(Player* player) override
         {
