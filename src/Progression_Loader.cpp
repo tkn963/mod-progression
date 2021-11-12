@@ -1,5 +1,6 @@
 void AddProgressionLoginMessageScripts();
-void AddProgressionRestrictionsScripts();
+void AddProgressionExpansionScripts();
+void AddProgressionRestrictedAreaScripts();
 
 void AddProgressionCreatureScripts();
 void AddProgressionDisableScripts();
@@ -14,7 +15,8 @@ void AddProgressionVendorScripts();
 void Addmod_progressionScripts()
 {
     AddProgressionLoginMessageScripts();
-    AddProgressionRestrictionsScripts();
+    AddProgressionExpansionScripts();
+    AddProgressionRestrictedAreaScripts();
 
     AddProgressionCreatureScripts();
     AddProgressionDisableScripts();

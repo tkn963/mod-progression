@@ -37,15 +37,19 @@ Progression.Patch = 20
 Progression.LoginMessage = 1
 
 ###########################################################
-# Prevent access to restricted content
-#
-# For example, the argent tournament was added in 3.1
-#
-# Restricting expansion allows access only to the
-# expansion for the selected patch
+# Set the active expansion based on selected patch
 #
 # 0 - (Disabled)
 # 1 - (Enabled)
 ###########################################################
-Progression.Restrictions.Areas = 1
-Progression.Restrictions.Expansion = 1
+Progression.Expansion = 1
+
+###########################################################
+# Prevent access to restricted areas
+#
+# For example, the argent tournament was added in 3.1
+#
+# 0 - (Disabled)
+# 1 - (Enabled)
+###########################################################
+Progression.RestrictedAreas = 1
