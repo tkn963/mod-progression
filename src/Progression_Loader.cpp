@@ -1,10 +1,8 @@
 void AddProgressionLoginMessageScripts();
 void AddProgressionRestrictionsScripts();
 
-void AddProgressionBattlegroundScripts();
 void AddProgressionCreatureScripts();
 void AddProgressionDisableScripts();
-void AddProgressionEventScripts();
 void AddProgressionGameObjectScripts();
 void AddProgressionItemScripts();
 void AddProgressionLootScripts();
@@ -18,10 +16,8 @@ void Addmod_progressionScripts()
     AddProgressionLoginMessageScripts();
     AddProgressionRestrictionsScripts();
 
-    AddProgressionBattlegroundScripts();
     AddProgressionCreatureScripts();
     AddProgressionDisableScripts();
-    AddProgressionEventScripts();
     AddProgressionGameObjectScripts();
     AddProgressionItemScripts();
     AddProgressionLootScripts();
