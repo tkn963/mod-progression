@@ -1,4 +1,3 @@
--- GameObject
 DROP TABLE IF EXISTS `progression_gameobject`;
 CREATE TABLE `progression_gameobject` (
     `guid` INT(10) UNSIGNED NOT NULL COMMENT 'Global Unique Identifier',
