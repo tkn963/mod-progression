@@ -73,7 +73,7 @@ class ProgressionCreature : public WorldScript
                                                       "`MovementType`, `InhabitType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, "
                                                       "`RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra` "
                                                       "FROM `progression_creature_template` a "
-                                                      "WHERE patch=(SELECT max(patch) `FROM progression_creature_template` b WHERE a.`entry`=b.`entry` && `patch` <= %u)", progression->getPatchId());
+                                                      "WHERE patch=(SELECT max(patch) FROM `progression_creature_template` b WHERE a.`entry`=b.`entry` && `patch` <= %u)", progression->getPatchId());
 
             if (!result)
                 return;
