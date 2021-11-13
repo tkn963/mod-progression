@@ -18,7 +18,7 @@ class ProgressionGameObject : public WorldScript
 
         void DeleteGameObjects()
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT guid FROM progression_gameobject WHERE %u NOT BETWEEN min_patch AND max_patch", progression->getPatchId());
+            QueryResult result = WorldDatabase.PQuery("SELECT `guid` FROM `progression_gameobject` WHERE %u NOT BETWEEN `min_patch` AND `max_patch`", progression->getPatchId());
 
             if (!result)
                 return;
@@ -35,7 +35,9 @@ class ProgressionGameObject : public WorldScript
 
         void UpdateGameObjects()
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT guid, id, map, position_x, position_y, position_z, orientation, rotation0, rotation1, rotation2, rotation3, spawntimesecs FROM progression_gameobject WHERE %u BETWEEN min_patch AND max_patch", progression->getPatchId());
+            QueryResult result = WorldDatabase.PQuery("SELECT `guid`, `id`, `map`, `position_x`, `position_y`, `position_z`, "
+                                                      "`orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, "
+                                                      "`spawntimesecs` FROM `progression_gameobject` WHERE %u BETWEEN `min_patch` AND `max_patch`", progression->getPatchId());
 
             if (!result)
                 return;
@@ -58,23 +60,20 @@ class ProgressionGameObject : public WorldScript
 
                 const GameObjectData* gameObjectData = sObjectMgr->GetGOData(guid);
 
-                if (gameObjectData->mapid != mapId || gameObjectData->posX != position_x || gameObjectData->posY != position_y ||
-                    gameObjectData->posZ != position_z || gameObjectData->orientation != orientation || gameObjectData->rotation.x != rotation0 ||
-                    gameObjectData->rotation.y != rotation1 || gameObjectData->rotation.z != rotation2 || gameObjectData->rotation.w != rotation3 ||
-                    gameObjectData->spawntimesecs != spawnTime)
-                {
                     if (gameObjectData)
                         sObjectMgr->DeleteGOData(guid);
 
                     sObjectMgr->AddGOData(id, mapId, position_x, position_y, position_z, orientation, spawnTime, rotation0, rotation1, rotation2, rotation3);
-                }
             } while (result->NextRow());
         }
 
         void UpdateGameobjectTemplates()
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT entry, name FROM progression_gameobject_template a "
-                                                      "WHERE patch=(SELECT max(patch) FROM progression_gameobject_template b WHERE a.entry=b.entry && patch <= %u)",
+            QueryResult result = WorldDatabase.PQuery("SELECT `entry`, `type`, `displayId`, `name`, `IconName`, `castBarCaption`, `unk1`, `size`, `Data0`, "
+                                                      "`Data1`, `Data2`, `Data3`, `Data4`, `Data5`, `Data6`, `Data7`, `Data8`, `Data9`, `Data10`, `Data11`, "
+                                                      "`Data12`, `Data13`, `Data14`, `Data15`, `Data16`, `Data17`, `Data18`, `Data19`, `Data20`, `Data21`, "
+                                                      "`Data22`, `Data23` FROM `progression_gameobject_template` a "
+                                                      "WHERE `patch`=(SELECT max(patch) FROM `progression_gameobject_template` b WHERE a.`entry`=b.`entry` && `patch` <= %u)",
                                                       progression->getPatchId());
 
             if (!result)
@@ -82,17 +81,31 @@ class ProgressionGameObject : public WorldScript
 
             do
             {
-                Field*fields     = result->Fetch();
-                uint32 entry     = fields[0].GetUInt32();
-                std::string name = fields[1].GetString();
+                Field*fields               = result->Fetch();
+                uint32 entry               = fields[0].GetUInt32();
+                uint32 type                = uint32(fields[1].GetUInt8());
+                uint32 displayId           = fields[2].GetUInt32();
+                std::string name           = fields[3].GetString();
+                std::string iconName       = fields[4].GetString();
+                std::string castBarCaption = fields[5].GetString();
+                std::string unk1           = fields[6].GetString();
+                float size                 = fields[7].GetFloat();
 
-                GameObjectTemplate* gameobject = const_cast<GameObjectTemplate*>(&sObjectMgr->GetGameObjectTemplates()->at(entry));
+                GameObjectTemplate* gameObject = const_cast<GameObjectTemplate*>(&sObjectMgr->GetGameObjectTemplates()->at(entry));
 
-                if (!gameobject)
+                if (!gameObject)
                     continue;
 
-                if (gameobject->name != name)
-                    gameobject->name = name;
+                gameObject->type = type;
+                gameObject->displayId = displayId;
+                gameObject->name = name;
+                gameObject->IconName = iconName;
+                gameObject->castBarCaption = castBarCaption;
+                gameObject->unk1 = unk1;
+                gameObject->size = size;
+
+                for (uint8 i = 0; i < MAX_GAMEOBJECT_DATA; ++i)
+                    gameObject->raw.data[i] = fields[8 + i].GetUInt32();
             } while (result->NextRow());
         }
 };

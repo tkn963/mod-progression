@@ -18,7 +18,7 @@ class ProgressionCreature : public WorldScript
 
         void DeleteCreatures()
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT guid FROM progression_creature WHERE %u NOT BETWEEN min_patch AND max_patch", progression->getPatchId());
+            QueryResult result = WorldDatabase.PQuery("SELECT `guid` FROM `progression_creature` WHERE %u NOT BETWEEN `min_patch` AND `max_patch`", progression->getPatchId());
 
             if (!result)
                 return;
@@ -34,7 +34,9 @@ class ProgressionCreature : public WorldScript
 
         void UpdateCreatures()
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT guid, map, position_x, position_y, position_z, orientation, spawntimesecs FROM progression_creature WHERE %u BETWEEN min_patch AND max_patch", progression->getPatchId());
+            QueryResult result = WorldDatabase.PQuery("SELECT `guid`, `map`, `position_x`, `position_y`, "
+                                                      "`position_z`, `orientation`, `spawntimesecs` "
+                                                      "FROM `progression_creature` WHERE %u BETWEEN `min_patch` AND `max_patch`", progression->getPatchId());
 
             if (!result)
                 return;
@@ -55,12 +57,8 @@ class ProgressionCreature : public WorldScript
                 if (!creatureData)
                     continue;
 
-                if (creatureData->mapid != mapId || creatureData->posX != position_x || creatureData->posY != position_y ||
-                    creatureData->posZ != position_z || creatureData->orientation != orientation || creatureData->spawntimesecs != spawnTime)
-                {
-                    sObjectMgr->DeleteCreatureData(guid);
-                    sObjectMgr->AddCreData(creatureData->id, mapId, position_x, position_y, position_z, orientation, spawnTime);
-                }
+                sObjectMgr->DeleteCreatureData(guid);
+                sObjectMgr->AddCreData(creatureData->id, mapId, position_x, position_y, position_z, orientation, spawnTime);
             } while (result->NextRow());
         }
 
@@ -75,7 +73,7 @@ class ProgressionCreature : public WorldScript
                                                       "`MovementType`, `InhabitType`, `HoverHeight`, `HealthModifier`, `ManaModifier`, `ArmorModifier`, `ExperienceModifier`, "
                                                       "`RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `spell_school_immune_mask`, `flags_extra` "
                                                       "FROM `progression_creature_template` a "
-                                                      "WHERE patch=(SELECT max(patch) FROM progression_creature_template b WHERE a.entry=b.entry && patch <= %u)", progression->getPatchId());
+                                                      "WHERE patch=(SELECT max(patch) `FROM progression_creature_template` b WHERE a.`entry`=b.`entry` && `patch` <= %u)", progression->getPatchId());
 
             if (!result)
                 return;
@@ -151,188 +149,67 @@ class ProgressionCreature : public WorldScript
                 if (!creatureTemplate)
                     continue;
 
-                if (creatureTemplate->DifficultyEntry[0] != difficultyEntry1)
-                    creatureTemplate->DifficultyEntry[0] = difficultyEntry1;
-
-                if (creatureTemplate->DifficultyEntry[1] != difficultyEntry2)
-                    creatureTemplate->DifficultyEntry[1] = difficultyEntry2;
-
-                if (creatureTemplate->DifficultyEntry[2] != difficultyEntry3)
-                    creatureTemplate->DifficultyEntry[2] = difficultyEntry3;
-
-                if (creatureTemplate->KillCredit[0] != killCredit1)
-                    creatureTemplate->KillCredit[0] = killCredit1;
-
-                if (creatureTemplate->KillCredit[1] != killCredit2)
-                    creatureTemplate->KillCredit[1] = killCredit2;
-
-                if (creatureTemplate->Modelid1 != modelId1)
-                    creatureTemplate->Modelid1 = modelId1;
-
-                if (creatureTemplate->Modelid2 != modelId2)
-                    creatureTemplate->Modelid2 = modelId2;
-
-                if (creatureTemplate->Modelid3 != modelId3)
-                    creatureTemplate->Modelid3 = modelId3;
-
-                if (creatureTemplate->Modelid4 != modelId4)
-                    creatureTemplate->Modelid4 = modelId4;
-
-                if (creatureTemplate->Name != name)
-                    creatureTemplate->Name = name;
-
-                if (creatureTemplate->SubName != subName)
-                    creatureTemplate->SubName = subName;
-
-                if (creatureTemplate->IconName != iconName)
-                    creatureTemplate->IconName = iconName;
-
-                if (creatureTemplate->GossipMenuId != gossipMenuId)
-                    creatureTemplate->GossipMenuId = gossipMenuId;
-
-                if (creatureTemplate->minlevel != minlevel)
-                    creatureTemplate->minlevel = minlevel;
-
-                if (creatureTemplate->maxlevel != maxlevel)
-                    creatureTemplate->maxlevel = maxlevel;
-
-                if (creatureTemplate->expansion != expansion)
-                    creatureTemplate->expansion = expansion;
-
-                if (creatureTemplate->faction != faction)
-                    creatureTemplate->faction = faction;
-
-                if (creatureTemplate->npcflag != npcFlag)
-                    creatureTemplate->npcflag = npcFlag;
-
-                if (creatureTemplate->speed_walk != speedWalk)
-                    creatureTemplate->speed_walk = speedWalk;
-
-                if (creatureTemplate->speed_run != speedRun)
-                    creatureTemplate->speed_run = speedRun;
-
-                if (creatureTemplate->detection_range != detectionRange)
-                    creatureTemplate->detection_range = detectionRange;
-
-                if (creatureTemplate->scale != scale)
-                    creatureTemplate->scale = scale;
-
-                if (creatureTemplate->rank != rank)
-                    creatureTemplate->rank = rank;
-
-                if (creatureTemplate->dmgschool != dmgSchool)
-                    creatureTemplate->dmgschool = dmgSchool;
-
-                if (creatureTemplate->DamageModifier != damageModifier)
-                    creatureTemplate->DamageModifier = damageModifier;
-
-                if (creatureTemplate->BaseAttackTime != baseAttackTime)
-                    creatureTemplate->BaseAttackTime = baseAttackTime;
-
-                if (creatureTemplate->RangeAttackTime != rangeAttackTime)
-                    creatureTemplate->RangeAttackTime = rangeAttackTime;
-
-                if (creatureTemplate->BaseVariance != baseVariance)
-                    creatureTemplate->BaseVariance = baseVariance;
-
-                if (creatureTemplate->RangeVariance != rangeVariance)
-                    creatureTemplate->RangeVariance = rangeVariance;
-
-                if (creatureTemplate->unit_class != unitClass)
-                    creatureTemplate->unit_class = unitClass;
-
-                if (creatureTemplate->unit_flags != unitFlags)
-                    creatureTemplate->unit_flags = unitFlags;
-
-                if (creatureTemplate->unit_flags2 != unitFlags2)
-                    creatureTemplate->unit_flags2 = unitFlags2;
-
-                if (creatureTemplate->dynamicflags != dynamicFlags)
-                    creatureTemplate->dynamicflags = dynamicFlags;
-
-                if (creatureTemplate->family != family)
-                    creatureTemplate->family = family;
-
-                if (creatureTemplate->trainer_type != trainerType)
-                    creatureTemplate->trainer_type = trainerType;
-
-                if (creatureTemplate->trainer_spell != trainerSpell)
-                    creatureTemplate->trainer_spell = trainerSpell;
-
-                if (creatureTemplate->trainer_class != trainerClass)
-                    creatureTemplate->trainer_class = trainerClass;
-
-                if (creatureTemplate->trainer_race != trainerRace)
-                    creatureTemplate->trainer_race = trainerRace;
-
-                if (creatureTemplate->type != type)
-                    creatureTemplate->type = type;
-
-                if (creatureTemplate->type_flags != typeFlags)
-                    creatureTemplate->type_flags = typeFlags;
-
-                if (creatureTemplate->lootid != lootId)
-                    creatureTemplate->lootid = lootId;
-
-                if (creatureTemplate->pickpocketLootId != pickPocketLootId)
-                    creatureTemplate->pickpocketLootId = pickPocketLootId;
-
-                if (creatureTemplate->SkinLootId != skinningLootId)
-                    creatureTemplate->SkinLootId = skinningLootId;
-
-                if (creatureTemplate->PetSpellDataId != petSpellDataId)
-                    creatureTemplate->PetSpellDataId = petSpellDataId;
-
-                if (creatureTemplate->VehicleId != vehicleId)
-                    creatureTemplate->VehicleId = vehicleId;
-
-                if (creatureTemplate->mingold != minGold)
-                    creatureTemplate->mingold = minGold;
-
-                if (creatureTemplate->maxgold != maxGold)
-                    creatureTemplate->maxgold = maxGold;
-
-                if (creatureTemplate->AIName != aiName)
-                    creatureTemplate->AIName = aiName;
-
-                if (creatureTemplate->MovementType != movementType)
-                    creatureTemplate->MovementType = movementType;
-
-                if (creatureTemplate->InhabitType != inhabitType)
-                    creatureTemplate->InhabitType = inhabitType;
-
-                if (creatureTemplate->HoverHeight != hoverHeight)
-                    creatureTemplate->HoverHeight = hoverHeight;
-
-                if (creatureTemplate->ModHealth != healthModifier)
-                    creatureTemplate->ModHealth = healthModifier;
-
-                if (creatureTemplate->ModMana != manaModifier)
-                    creatureTemplate->ModMana = manaModifier;
-
-                if (creatureTemplate->ModArmor != armorModifier)
-                    creatureTemplate->ModArmor = armorModifier;
-
-                if (creatureTemplate->ModExperience != experienceModifier)
-                    creatureTemplate->ModExperience = experienceModifier;
-
-                if (creatureTemplate->RacialLeader != racialLeader)
-                    creatureTemplate->RacialLeader = racialLeader;
-
-                if (creatureTemplate->movementId != movementId)
-                    creatureTemplate->movementId = movementId;
-
-                if (creatureTemplate->RegenHealth != regenHealth)
-                    creatureTemplate->RegenHealth = regenHealth;
-
-                if (creatureTemplate->MechanicImmuneMask != immuneMask)
-                    creatureTemplate->MechanicImmuneMask = immuneMask;
-
-                if (creatureTemplate->SpellSchoolImmuneMask != spellImmuneMask)
-                    creatureTemplate->SpellSchoolImmuneMask = spellImmuneMask;
-
-                if (creatureTemplate->flags_extra != flagsExtra)
-                    creatureTemplate->flags_extra = flagsExtra;
+                creatureTemplate->DifficultyEntry[0] = difficultyEntry1;
+                creatureTemplate->DifficultyEntry[1] = difficultyEntry2;
+                creatureTemplate->DifficultyEntry[2] = difficultyEntry3;
+                creatureTemplate->KillCredit[0] = killCredit1;
+                creatureTemplate->KillCredit[1] = killCredit2;
+                creatureTemplate->Modelid1 = modelId1;
+                creatureTemplate->Modelid2 = modelId2;
+                creatureTemplate->Modelid3 = modelId3;
+                creatureTemplate->Modelid4 = modelId4;
+                creatureTemplate->Name = name;
+                creatureTemplate->SubName = subName;
+                creatureTemplate->IconName = iconName;
+                creatureTemplate->GossipMenuId = gossipMenuId;
+                creatureTemplate->minlevel = minlevel;
+                creatureTemplate->maxlevel = maxlevel;
+                creatureTemplate->expansion = expansion;
+                creatureTemplate->faction = faction;
+                creatureTemplate->npcflag = npcFlag;
+                creatureTemplate->speed_walk = speedWalk;
+                creatureTemplate->speed_run = speedRun;
+                creatureTemplate->detection_range = detectionRange;
+                creatureTemplate->scale = scale;
+                creatureTemplate->rank = rank;
+                creatureTemplate->dmgschool = dmgSchool;
+                creatureTemplate->DamageModifier = damageModifier;
+                creatureTemplate->BaseAttackTime = baseAttackTime;
+                creatureTemplate->RangeAttackTime = rangeAttackTime;
+                creatureTemplate->BaseVariance = baseVariance;
+                creatureTemplate->RangeVariance = rangeVariance;
+                creatureTemplate->unit_class = unitClass;
+                creatureTemplate->unit_flags = unitFlags;
+                creatureTemplate->unit_flags2 = unitFlags2;
+                creatureTemplate->dynamicflags = dynamicFlags;
+                creatureTemplate->family = family;
+                creatureTemplate->trainer_type = trainerType;
+                creatureTemplate->trainer_spell = trainerSpell;
+                creatureTemplate->trainer_class = trainerClass;
+                creatureTemplate->trainer_race = trainerRace;
+                creatureTemplate->type = type;
+                creatureTemplate->type_flags = typeFlags;
+                creatureTemplate->lootid = lootId;
+                creatureTemplate->pickpocketLootId = pickPocketLootId;
+                creatureTemplate->SkinLootId = skinningLootId;
+                creatureTemplate->PetSpellDataId = petSpellDataId;
+                creatureTemplate->VehicleId = vehicleId;
+                creatureTemplate->mingold = minGold;
+                creatureTemplate->maxgold = maxGold;
+                creatureTemplate->AIName = aiName;
+                creatureTemplate->MovementType = movementType;
+                creatureTemplate->InhabitType = inhabitType;
+                creatureTemplate->HoverHeight = hoverHeight;
+                creatureTemplate->ModHealth = healthModifier;
+                creatureTemplate->ModMana = manaModifier;
+                creatureTemplate->ModArmor = armorModifier;
+                creatureTemplate->ModExperience = experienceModifier;
+                creatureTemplate->RacialLeader = racialLeader;
+                creatureTemplate->movementId = movementId;
+                creatureTemplate->RegenHealth = regenHealth;
+                creatureTemplate->MechanicImmuneMask = immuneMask;
+                creatureTemplate->SpellSchoolImmuneMask = spellImmuneMask;
+                creatureTemplate->flags_extra = flagsExtra;
             } while (result->NextRow());
         }
 };

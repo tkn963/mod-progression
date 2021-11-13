@@ -17,7 +17,7 @@ class ProgressionVendor : public WorldScript
 
         void DeleteVendorItems()
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT entry, item FROM progression_npc_vendor WHERE %u NOT BETWEEN min_patch AND max_patch", progression->getPatchId());
+            QueryResult result = WorldDatabase.PQuery("SELECT `entry`, `item` FROM progression_npc_vendor WHERE %u NOT BETWEEN `min_patch` AND `max_patch`", progression->getPatchId());
 
             if (!result)
                 return;
@@ -34,7 +34,7 @@ class ProgressionVendor : public WorldScript
 
         void AddVendorItems()
         {
-            QueryResult result = WorldDatabase.PQuery("SELECT entry, item, maxcount, incrtime, ExtendedCost FROM progression_npc_vendor WHERE %u BETWEEN min_patch AND max_patch", progression->getPatchId());
+            QueryResult result = WorldDatabase.PQuery("SELECT `entry`, `item`, `maxcount`, `incrtime`, `ExtendedCost` FROM `progression_npc_vendor` WHERE %u BETWEEN `min_patch` AND `max_patch`", progression->getPatchId());
 
             if (!result)
                 return;

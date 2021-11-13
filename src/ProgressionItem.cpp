@@ -46,38 +46,17 @@ class ProgressionItem : public WorldScript
                 if (!itemTemplate)
                     continue;
 
-                if (itemTemplate->BuyPrice != buyPrice)
-                    itemTemplate->BuyPrice = buyPrice;
-
-                if (itemTemplate->SellPrice != sellPrice)
-                    itemTemplate->SellPrice = sellPrice;
-
-                if (itemTemplate->ItemLevel != itemLevel)
-                    itemTemplate->ItemLevel = itemLevel;
-
-                if (itemTemplate->RequiredLevel != requiredLevel)
-                    itemTemplate->RequiredLevel = requiredLevel;
-
-                if (itemTemplate->Spells[0].SpellId != spellId1)
-                    itemTemplate->Spells[0].SpellId = spellId1;
-
-                if (itemTemplate->Spells[0].SpellCharges != spellCharges1)
-                    itemTemplate->Spells[0].SpellCharges = spellCharges1;
-
-                if (itemTemplate->Spells[0].SpellCategoryCooldown != spellCategoryCooldown1)
-                    itemTemplate->Spells[0].SpellCategoryCooldown = spellCategoryCooldown1;
-
-                if (itemTemplate->Spells[0].SpellCategory != spellCategory1)
-                    itemTemplate->Spells[0].SpellCategory = spellCategory1;
-
-                if (itemTemplate->Spells[1].SpellId != spellId2)
-                    itemTemplate->Spells[1].SpellId = spellId2;
-
-                if (itemTemplate->Spells[1].SpellTrigger != spellTrigger2)
-                    itemTemplate->Spells[1].SpellTrigger = spellTrigger2;
-
-                if (itemTemplate->Description != description)
-                    itemTemplate->Description = description;
+                itemTemplate->BuyPrice = buyPrice;
+                itemTemplate->SellPrice = sellPrice;
+                itemTemplate->ItemLevel = itemLevel;
+                itemTemplate->RequiredLevel = requiredLevel;
+                itemTemplate->Spells[0].SpellId = spellId1;
+                itemTemplate->Spells[0].SpellCharges = spellCharges1;
+                itemTemplate->Spells[0].SpellCategoryCooldown = spellCategoryCooldown1;
+                itemTemplate->Spells[0].SpellCategory = spellCategory1;
+                itemTemplate->Spells[1].SpellId = spellId2;
+                itemTemplate->Spells[1].SpellTrigger = spellTrigger2;
+                itemTemplate->Description = description;
             } while (result->NextRow());
         }
 };
