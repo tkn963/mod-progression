@@ -35,7 +35,25 @@ class Progression
     public:
         int getPatchId()
         {
-            if (patchId < Patches::LAUNCH || patchId > Patches::FALL_OF_THE_LICH_KING)
+            if (patchId != Patches::LAUNCH &&
+                patchId != Patches::MYSTERIES_OF_MARAUDON &&
+                patchId != Patches::RUINS_OF_DIRE_MAUL &&
+                patchId != Patches::THE_CALL_OF_WAR &&
+                patchId != Patches::BATTLEGROUNDS &&
+                patchId != Patches::ASSAULT_ON_BLACKWING_LAIR &&
+                patchId != Patches::RISE_OF_THE_BLOOD_GOD &&
+                patchId != Patches::DRAGONS_OF_NIGHTMARE &&
+                patchId != Patches::THE_GATES_OF_AHN_QIRAJ &&
+                patchId != Patches::STORMS_OF_AZEROTH &&
+                patchId != Patches::SHADOW_OF_THE_NECROPOLIS &&
+                patchId != Patches::DRUMS_OF_WAR &&
+                patchId != Patches::BEFORE_THE_STORM &&
+                patchId != Patches::THE_BLACK_TEMPLE &&
+                patchId != Patches::VOICE_CHAT &&
+                patchId != Patches::ECHO_OF_DOOM &&
+                patchId != Patches::SECRETS_OF_ULDUAR &&
+                patchId != Patches::CALL_OF_THE_CRUSADE &&
+                patchId != FALL_OF_THE_LICH_KING)
                 patchId = Patches::FALL_OF_THE_LICH_KING;
 
             return patchId;
