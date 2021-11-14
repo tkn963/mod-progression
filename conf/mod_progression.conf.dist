@@ -2,30 +2,30 @@
 ###########################################################
 # The patch to be used.
 #
-#  0 - (Patch 1.1: World of Warcraft)
-#  1 - (Patch 1.2: Mysteries of Maraudon)
-#  2 - (Patch 1.3: Ruins of the Dire Maul)
-#  3 - (Patch 1.4: The Call to War)
-#  4 - (Patch 1.5: Battlegrounds)
-#  5 - (Patch 1.6: Assault on Blackwing Lair)
-#  6 - (Patch 1.7: Rise of the Blood God)
-#  7 - (Patch 1.8: Dragons of Nightmare)
-#  8 - (Patch 1.9: The Gates of Ahn'Qiraj)
-#  9 - (Patch 1.10: Storms of Azeroth)
-# 10 - (Patch 1.11: Shadow of the Necropolis)
-# 11 - (Patch 1.12: Drums of War)
-# 12 - (Patch 2.0: Before the Storm / The Burning Crusade)
-# 13 - (Patch 2.1: The Black Temple)
-# 14 - (Patch 2.2: Voice Chat!)
-# 15 - (Patch 2.3: The Gods of Zul'Aman)
-# 16 - (Patch 2.4: Fury of the Sunwell)
-# 17 - (Patch 3.0: Echo of Doom / Wrath of the Lich King)
-# 18 - (Patch 3.1: Secrets of Ulduar)
-# 19 - (Patch 3.2: Call of the Crusade)
-# 20 - (Patch 3.3: Fall of the Lich King)
+#  4125 - (Patch 1.1: World of Warcraft)
+#  4222 - (Patch 1.2: Mysteries of Maraudon)
+#  4297 - (Patch 1.3: Ruins of the Dire Maul)
+#  4375 - (Patch 1.4: The Call to War)
+#  4449 - (Patch 1.5: Battlegrounds)
+#  4544 - (Patch 1.6: Assault on Blackwing Lair)
+#  4695 - (Patch 1.7: Rise of the Blood God)
+#  4878 - (Patch 1.8: Dragons of Nightmare)
+#  5086 - (Patch 1.9: The Gates of Ahn'Qiraj)
+#  5302 - (Patch 1.10: Storms of Azeroth)
+#  5464 - (Patch 1.11: Shadow of the Necropolis)
+#  5875 - (Patch 1.12: Drums of War)
+#  6546 - (Patch 2.0: Before the Storm / The Burning Crusade)
+#  6898 - (Patch 2.1: The Black Temple)
+#  7359 - (Patch 2.2: Voice Chat!)
+#  7799 - (Patch 2.3: The Gods of Zul'Aman)
+#  8478 - (Patch 2.4: Fury of the Sunwell)
+#  9551 - (Patch 3.0: Echo of Doom / Wrath of the Lich King)
+#  9947 - (Patch 3.1: Secrets of Ulduar)
+# 10505 - (Patch 3.2: Call of the Crusade)
+# 12340 - (Patch 3.3: Fall of the Lich King)
 ###########################################################
 # The currently active patch
-Progression.Patch = 20
+Progression.Patch = 12340
 
 ###########################################################
 # Send a message to players entering the world
