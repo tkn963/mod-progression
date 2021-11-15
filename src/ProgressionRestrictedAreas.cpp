@@ -1,10 +1,10 @@
 #include "Config.h"
 #include "Progression.h"
 
-class ProgressionRestrictedArea : public PlayerScript
+class ProgressionRestrictedAreas : public PlayerScript
 {
     public:
-        ProgressionRestrictedArea() : PlayerScript("ProgressionRestrictedArea") {}
+        ProgressionRestrictedAreas() : PlayerScript("ProgressionRestrictedAreas") {}
 
         void OnUpdateArea(Player* player, uint32 /*oldArea*/, uint32 newArea)
         {
@@ -29,7 +29,7 @@ class ProgressionRestrictedArea : public PlayerScript
         Progression* progression = new Progression();
 };
 
-void AddProgressionRestrictedAreaScripts()
+void AddProgressionRestrictedAreasScripts()
 {
-    new ProgressionRestrictedArea();
+    new ProgressionRestrictedAreas();
 }
