@@ -16,6 +16,16 @@ class ProgressionGameObjects : public WorldScript
                                         progression->getPatchId());
         }
 
+        void OnBeforeGameObjectAddonQueried(std::string& query) override
+        {
+            query = Acore::StringFormat("SELECT a.guid, invisibilityType, invisibilityValue FROM gameobject_addon a "
+                                        "LEFT OUTER JOIN gameobject c ON a.guid = c.guid "
+                                        "WHERE patch=(SELECT max(patch) FROM gameobject_addon b WHERE a.guid=b.guid && patch <= %u) "
+                                        "AND %u BETWEEN c.min_patch AND c.max_patch",
+                                        progression->getPatchId(),
+                                        progression->getPatchId());
+        }
+
         void OnBeforeGameObjectTemplateQueried(std::string& query) override
         {
             query = Acore::StringFormat("SELECT entry, type, displayId, name, IconName, castBarCaption, unk1, size, "

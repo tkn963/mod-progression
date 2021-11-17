@@ -56,17 +56,22 @@ ALTER TABLE `creature_template`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`entry`, `patch`) USING BTREE;
 
+CALL AddProgressionColumn('disables', 'min_patch', 'INT', '4125', 'entry');
+CALL AddProgressionColumn('disables', 'max_patch', 'INT', '12340', 'min_patch');
+ALTER TABLE `disables`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`sourceType`, `entry`, `min_patch`, `max_patch`) USING BTREE;
+
 CALL AddProgressionColumn('gameobject', 'min_patch', 'INT', '4125', 'id');
 CALL AddProgressionColumn('gameobject', 'max_patch', 'INT', '12340', 'min_patch');
 ALTER TABLE `gameobject`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`guid`, `min_patch`, `max_patch`) USING BTREE;
 
-CALL AddProgressionColumn('disables', 'min_patch', 'INT', '4125', 'entry');
-CALL AddProgressionColumn('disables', 'max_patch', 'INT', '12340', 'min_patch');
-ALTER TABLE `disables`
+CALL AddProgressionColumn('gameobject_addon', 'patch', 'INT', '4125', 'guid');
+ALTER TABLE `gameobject_addon`
 	DROP PRIMARY KEY,
-	ADD PRIMARY KEY (`sourceType`, `entry`, `min_patch`, `max_patch`) USING BTREE;
+	ADD PRIMARY KEY (`guid`, `patch`) USING BTREE;
 
 CALL AddProgressionColumn('gameobject_template', 'patch', 'INT', '4125', 'entry');
 ALTER TABLE `gameobject_template`
