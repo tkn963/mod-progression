@@ -17,6 +17,16 @@ class ProgressionCreatures : public WorldScript
                                         progression->getPatchId());
         }
 
+        void OnBeforeCreatureAddonQueried(std::string& query) override
+        {
+            query = Acore::StringFormat("SELECT a.guid, path_id, mount, bytes1, bytes2, emote, isLarge, auras FROM creature_addon a "
+                                        "LEFT OUTER JOIN creature c ON a.guid = c.guid "
+                                        "WHERE patch=(SELECT max(patch) FROM creature_addon b WHERE a.guid=b.guid && patch <= %u) "
+                                        "AND %u BETWEEN c.min_patch AND c.max_patch",
+                                        progression->getPatchId(),
+                                        progression->getPatchId());
+        }
+
         void OnBeforeCreatureTemplateQueried(std::string& query) override
         {
             query = Acore::StringFormat("SELECT entry, difficulty_entry_1, difficulty_entry_2, difficulty_entry_3, KillCredit1, KillCredit2, modelid1, modelid2, modelid3, "

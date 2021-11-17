@@ -46,6 +46,11 @@ ALTER TABLE `creature`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`guid`, `min_patch`, `max_patch`) USING BTREE;
 
+CALL AddProgressionColumn('creature_addon', 'patch', 'INT', '4125', 'guid');
+ALTER TABLE `creature_addon`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`guid`, `patch`) USING BTREE;
+
 CALL AddProgressionColumn('creature_template', 'patch', 'INT', '4125', 'entry');
 ALTER TABLE `creature_template`
 	DROP PRIMARY KEY,
