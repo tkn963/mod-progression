@@ -4,6 +4,7 @@ void AddProgressionRestrictedAreasScripts();
 
 void AddProgressionCreaturesScripts();
 void AddProgressionGameObjectsScripts();
+void AddProgressionOtherScripts();
 
 void Addmod_progressionScripts()
 {
@@ -13,4 +14,5 @@ void Addmod_progressionScripts()
 
     AddProgressionCreaturesScripts();
     AddProgressionGameObjectsScripts();
+    AddProgressionOtherScripts();
 }
