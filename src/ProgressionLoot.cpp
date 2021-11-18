@@ -20,6 +20,7 @@ class ProgressionLoot : public WorldScript
             else if (table == "mail_loot_template") {}
             else if (table == "milling_loot_template") {}
             else if (table == "pickpocketing_loot_template") {}
+            else if (table == "player_loot_template") {}
             else if (table == "prospecting_loot_template") {}
             else if (table == "reference_loot_template") {}
             else if (table == "skinning_loot_template") {}

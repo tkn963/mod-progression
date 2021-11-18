@@ -182,6 +182,13 @@ ALTER TABLE `pickpocketing_loot_template`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
 
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('player_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `player_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
+
 -- This is mainly to handle errors when starting without certain creatures enabled.
 -- I am honestly not sure how to properly handle this.
 CALL AddProgressionColumn('pool_template', 'min_patch', 'INT', '4125', 'entry');
