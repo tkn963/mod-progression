@@ -53,7 +53,7 @@ class Progression
                 patchId != Patches::ECHO_OF_DOOM &&
                 patchId != Patches::SECRETS_OF_ULDUAR &&
                 patchId != Patches::CALL_OF_THE_CRUSADE &&
-                patchId != FALL_OF_THE_LICH_KING)
+                patchId != Patches::FALL_OF_THE_LICH_KING)
                 patchId = Patches::FALL_OF_THE_LICH_KING;
 
             return patchId;
