@@ -64,6 +64,13 @@ ALTER TABLE `creature_addon`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`guid`, `patch`) USING BTREE;
 
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('creature_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `creature_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
+
 -- Creatures will change over time. This column helps with that.
 CALL AddProgressionColumn('creature_template', 'patch', 'INT', '4125', 'entry');
 ALTER TABLE `creature_template`
@@ -76,6 +83,20 @@ CALL AddProgressionColumn('disables', 'max_patch', 'INT', '12340', 'min_patch');
 ALTER TABLE `disables`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`sourceType`, `entry`, `min_patch`, `max_patch`) USING BTREE;
+
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('disenchant_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `disenchant_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
+
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('fishing_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `fishing_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
 
 -- Certain creatures will be added in patches, and some removed in patches.
 -- Having min/max here is a must.
@@ -92,6 +113,12 @@ ALTER TABLE `gameobject_addon`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`guid`, `patch`) USING BTREE;
 
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('gameobject_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `gameobject_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
 
 -- Game objects will change over time. This column helps with that.
 CALL AddProgressionColumn('gameobject_template', 'patch', 'INT', '4125', 'entry');
@@ -105,6 +132,13 @@ ALTER TABLE `game_event`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`eventEntry`, `patch`) USING BTREE;
 
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('item_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `item_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
+
 -- Many items change over the course of the game.. so many.
 CALL AddProgressionColumn('item_template', 'patch', 'INT', '4125', 'entry');
 ALTER TABLE `item_template`
@@ -117,6 +151,20 @@ CALL AddProgressionColumn('linked_respawn', 'patch', 'INT', '4125', 'linkType');
 ALTER TABLE `linked_respawn`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`guid`, `linkType`, `patch`) USING BTREE;
+
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('mail_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `mail_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
+
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('milling_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `milling_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
 
 -- Spells get added, removed or changed over the course of the game.
 -- A rough example are the riding spells. Their required level and cost changed with every expansion, more or less.
@@ -133,6 +181,13 @@ ALTER TABLE `npc_vendor`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`entry`, `item`, `ExtendedCost`, `min_patch`, `max_patch`) USING BTREE;
 
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('pickpocketing_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `pickpocketing_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
+
 -- This is mainly to handle errors when starting without certain creatures enabled.
 -- I am honestly not sure how to properly handle this.
 CALL AddProgressionColumn('pool_template', 'min_patch', 'INT', '4125', 'entry');
@@ -141,11 +196,39 @@ ALTER TABLE `pool_template`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`entry`, `min_patch`, `max_patch`) USING BTREE;
 
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('prospecting_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `prospecting_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
+
 -- Quests change over time, in many ways.
 CALL AddProgressionColumn('quest_template', 'patch', 'INT', '4125', 'ID');
 ALTER TABLE `quest_template`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`ID`, `patch`) USING BTREE;
+
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('reference_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `reference_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
+
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('skinning_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `skinning_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
+
+-- The column I've chosen for loot templates are just for testing purposes.
+-- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
+CALL AddProgressionColumn('spell_loot_template', 'patch', 'INT', '4125', 'Item');
+ALTER TABLE `spell_loot_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
 
 -- Different transports are added in various patches.
 -- For example, the transport to and from northrend shouldn't be active before then.
@@ -155,3 +238,17 @@ ALTER TABLE `transports`
 	ADD PRIMARY KEY (`guid`, `patch`) USING BTREE;
 
 DROP PROCEDURE IF EXISTS `AddProgressionColumn`;
+
+/*
+To test for errors, run this after creating all columns
+
+UPDATE `conditions` SET `min_patch`=12340, `max_patch`=12340;
+UPDATE `creature` SET `min_patch`=12340, `max_patch`=12340;
+UPDATE `gameobject` SET `min_patch`=12340, `max_patch`=12340;
+UPDATE `game_event` SET `patch`=12340;
+UPDATE `linked_respawn` SET `patch`=12340;
+UPDATE `npc_trainer` SET `min_patch`=12340, `max_patch`=12340;
+UPDATE `npc_vendor` SET `min_patch`=12340, `max_patch`=12340;
+UPDATE `pool_template` SET `min_patch`=12340, `max_patch`=12340;
+UPDATE `transports` SET `patch`=12340;
+*/
