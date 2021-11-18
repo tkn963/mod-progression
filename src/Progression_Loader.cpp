@@ -5,7 +5,10 @@ void AddProgressionRestrictedAreasScripts();
 void AddProgressionCreaturesScripts();
 void AddProgressionDisablesScripts();
 void AddProgressionGameObjectsScripts();
+void AddProgressionItemsScripts();
 void AddProgressionMapScripts();
+void AddProgressionNpcScripts();
+void AddProgressionQuestsScripts();
 
 void Addmod_progressionScripts()
 {
@@ -16,5 +19,8 @@ void Addmod_progressionScripts()
     AddProgressionCreaturesScripts();
     AddProgressionDisablesScripts();
     AddProgressionGameObjectsScripts();
+    AddProgressionItemsScripts();
     AddProgressionMapScripts();
+    AddProgressionNpcScripts();
+    AddProgressionQuestsScripts();
 }

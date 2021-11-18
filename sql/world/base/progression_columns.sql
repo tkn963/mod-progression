@@ -88,6 +88,18 @@ ALTER TABLE `linked_respawn`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`guid`, `linkType`, `patch`) USING BTREE;
 
+CALL AddProgressionColumn('npc_trainer', 'min_patch', 'INT', '4125', 'ID');
+CALL AddProgressionColumn('npc_trainer', 'max_patch', 'INT', '12340', 'min_patch');
+ALTER TABLE `npc_trainer`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`ID`, `SpellID`, `min_patch`, `max_patch`) USING BTREE;
+
+CALL AddProgressionColumn('npc_vendor', 'min_patch', 'INT', '4125', 'entry');
+CALL AddProgressionColumn('npc_vendor', 'max_patch', 'INT', '12340', 'min_patch');
+ALTER TABLE `npc_vendor`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`entry`, `item`, `ExtendedCost`, `min_patch`, `max_patch`) USING BTREE;
+
 CALL AddProgressionColumn('pool_template', 'min_patch', 'INT', '4125', 'entry');
 CALL AddProgressionColumn('pool_template', 'max_patch', 'INT', '12340', 'min_patch');
 ALTER TABLE `pool_template`
