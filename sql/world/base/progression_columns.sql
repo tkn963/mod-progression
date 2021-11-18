@@ -78,10 +78,21 @@ ALTER TABLE `gameobject_template`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`entry`, `patch`) USING BTREE;
 
+CALL AddProgressionColumn('item_template', 'patch', 'INT', '4125', 'entry');
+ALTER TABLE `item_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`entry`, `patch`) USING BTREE;
+
 CALL AddProgressionColumn('linked_respawn', 'patch', 'INT', '4125', 'linkType');
 ALTER TABLE `linked_respawn`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`guid`, `linkType`, `patch`) USING BTREE;
+
+CALL AddProgressionColumn('pool_template', 'min_patch', 'INT', '4125', 'entry');
+CALL AddProgressionColumn('pool_template', 'max_patch', 'INT', '12340', 'min_patch');
+ALTER TABLE `pool_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`entry`, `min_patch`, `max_patch`) USING BTREE;
 
 CALL AddProgressionColumn('quest_template', 'patch', 'INT', '4125', 'ID');
 ALTER TABLE `quest_template`
