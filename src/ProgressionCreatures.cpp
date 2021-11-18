@@ -19,7 +19,7 @@ class ProgressionCreatures : public WorldScript
 
         void OnBeforeCreatureAddonQueried(std::string& query) override
         {
-            query = Acore::StringFormat("SELECT a.guid, path_id, mount, bytes1, bytes2, emote, isLarge, auras FROM creature_addon a "
+            query = Acore::StringFormat("SELECT a.guid, path_id, mount, bytes1, bytes2, emote, visibilityDistanceType, auras FROM creature_addon a "
                                         "LEFT OUTER JOIN creature c ON a.guid = c.guid "
                                         "WHERE patch=(SELECT max(patch) FROM creature_addon b WHERE a.guid = b.guid && patch <= %u) "
                                         "AND %u BETWEEN c.min_patch AND c.max_patch",
