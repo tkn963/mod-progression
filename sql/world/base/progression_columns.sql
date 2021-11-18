@@ -126,12 +126,6 @@ ALTER TABLE `gameobject_template`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`entry`, `patch`) USING BTREE;
 
--- Game events were added over the course of several patches. As far as I know, none were removed but merely never triggered again (like the AQ gate opening event).
-CALL AddProgressionColumn('game_event', 'patch', 'INT', '4125', 'eventEntry');
-ALTER TABLE `game_event`
-	DROP PRIMARY KEY,
-	ADD PRIMARY KEY (`eventEntry`, `patch`) USING BTREE;
-
 -- The column I've chosen for loot templates are just for testing purposes.
 -- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
 CALL AddProgressionColumn('item_loot_template', 'patch', 'INT', '4125', 'Item');
@@ -245,7 +239,6 @@ To test for errors, run this after creating all columns
 UPDATE `conditions` SET `min_patch`=12340, `max_patch`=12340;
 UPDATE `creature` SET `min_patch`=12340, `max_patch`=12340;
 UPDATE `gameobject` SET `min_patch`=12340, `max_patch`=12340;
-UPDATE `game_event` SET `patch`=12340;
 UPDATE `linked_respawn` SET `patch`=12340;
 UPDATE `npc_trainer` SET `min_patch`=12340, `max_patch`=12340;
 UPDATE `npc_vendor` SET `min_patch`=12340, `max_patch`=12340;

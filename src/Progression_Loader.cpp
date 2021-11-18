@@ -5,7 +5,6 @@ void AddProgressionRestrictedAreasScripts();
 void AddProgressionConditionsScripts();
 void AddProgressionCreaturesScripts();
 void AddProgressionDisablesScripts();
-void AddProgressionEventsScripts();
 void AddProgressionGameObjectsScripts();
 void AddProgressionItemsScripts();
 void AddProgressionLootScripts();
@@ -22,7 +21,6 @@ void Addmod_progressionScripts()
     AddProgressionConditionsScripts();
     AddProgressionCreaturesScripts();
     AddProgressionDisablesScripts();
-    AddProgressionEventsScripts();
     AddProgressionGameObjectsScripts();
     AddProgressionItemsScripts();
     AddProgressionLootScripts();
