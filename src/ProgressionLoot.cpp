@@ -27,7 +27,7 @@ class ProgressionLoot : public WorldScript
             */
 
             query = Acore::StringFormat("SELECT Entry, Item, Reference, Chance, QuestRequired, LootMode, GroupId, MinCount, MaxCount FROM %s "
-                                        "patch=(SELECT max(patch) FROM %s b WHERE a.Entry = b.Entry && patch <= %u)",
+                                        "WHERE patch=(SELECT max(patch) FROM %s b WHERE a.Entry = b.Entry && patch <= %u)",
                                         table,
                                         table,
                                         progression->getPatchId());
