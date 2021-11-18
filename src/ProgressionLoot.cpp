@@ -26,7 +26,7 @@ class ProgressionLoot : public WorldScript
             else if (table == "spell_loot_template") {}
             */
 
-            query = Acore::StringFormat("SELECT Entry, Item, Reference, Chance, QuestRequired, LootMode, GroupId, MinCount, MaxCount FROM %s "
+            query = Acore::StringFormat("SELECT Entry, Item, Reference, Chance, QuestRequired, LootMode, GroupId, MinCount, MaxCount FROM %s a "
                                         "WHERE patch=(SELECT max(patch) FROM %s b WHERE a.Entry = b.Entry && patch <= %u)",
                                         table,
                                         table,
