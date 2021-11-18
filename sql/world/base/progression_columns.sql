@@ -245,7 +245,9 @@ To test for errors, run this after creating all columns
 
 UPDATE `conditions` SET `min_patch`=12340, `max_patch`=12340;
 UPDATE `creature` SET `min_patch`=12340, `max_patch`=12340;
+UPDATE `creature` SET `min_patch`=4125 WHERE `guid`=36625;
 UPDATE `gameobject` SET `min_patch`=12340, `max_patch`=12340;
+UPDATE `gameobject` SET `min_patch`=4125 WHERE `guid` IN (6781, 9263, 16735, 16736, 16737, 16738, 16740, 16741, 16742, 16743, 16969, 16970, 16971, 16972, 16973, 21607, 21611, 27142, 28288, 45612, 46424, 46425, 46429, 50455, 50456, 50457, 50459, 50460, 50461, 50462, 50463, 50464, 50465, 50466, 50467, 50468, 50469, 50470, 50471, 50472, 57571, 99774, 99775, 99776, 99777, 99778, 99779, 99780, 99781, 99782, 99783, 99784, 99896);
 UPDATE `linked_respawn` SET `patch`=12340;
 UPDATE `npc_trainer` SET `min_patch`=12340, `max_patch`=12340;
 UPDATE `npc_vendor` SET `min_patch`=12340, `max_patch`=12340;
