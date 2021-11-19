@@ -6,6 +6,14 @@ class ProgressionQuests : public WorldScript
     public:
         ProgressionQuests() : WorldScript("ProgressionQuests") {}
 
+        void OnBeforeQuestRelationsQueried(std::string const& table, std::string& query) override
+        {
+            query = Acore::StringFormat("SELECT id, quest, pool_entry FROM %s qr LEFT JOIN pool_quest pq ON qr.quest = pq.entry "
+                                        "WHERE %u BETWEEN min_patch AND max_patch",
+                                        table.c_str(),
+                                        progression->getPatchId());
+        }
+
         void OnBeforeQuestTemplateQueried(std::string& query) override
         {
             query = Acore::StringFormat("SELECT ID, QuestType, QuestLevel, MinLevel, QuestSortID, QuestInfoID, SuggestedGroupNum, TimeAllowed, AllowableRaces,"

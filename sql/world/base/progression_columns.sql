@@ -64,12 +64,39 @@ ALTER TABLE `creature_addon`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`guid`, `patch`) USING BTREE;
 
+-- I know certain creatures equipment changes over time. One fair example are the PvP vendors in Orgrimmar. Their model changed, as well as their equipment.
+CALL AddProgressionColumn('creature_equip_template', 'patch', 'INT', '4125', 'CreatureID');
+ALTER TABLE `creature_equip_template`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`CreatureID`, `ID`, `patch`) USING BTREE;
+
 -- The column I've chosen for loot templates are just for testing purposes.
 -- It could just as well be just min/max, patch or even non-existant depending on the type of loot template.
 CALL AddProgressionColumn('creature_loot_template', 'patch', 'INT', '4125', 'Item');
 ALTER TABLE `creature_loot_template`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
+
+-- I'm not sure what columns to use here
+CALL AddProgressionColumn('creature_questender', 'min_patch', 'INT', '4125', 'quest');
+CALL AddProgressionColumn('creature_questender', 'max_patch', 'INT', '12340', 'min_patch');
+ALTER TABLE `creature_questender`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`id`, `quest`, `min_patch`, `max_patch`) USING BTREE;
+
+-- I'm not sure what columns to use here
+CALL AddProgressionColumn('creature_queststarter', 'min_patch', 'INT', '4125', 'quest');
+CALL AddProgressionColumn('creature_queststarter', 'max_patch', 'INT', '12340', 'min_patch');
+ALTER TABLE `creature_queststarter`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`id`, `quest`, `min_patch`, `max_patch`) USING BTREE;
+
+-- I'm not 100% sure if this is actually needed, but I seem to remember certain creatures giving reputation only after a specific patch.
+-- I just can't think of a specific example right now.
+CALL AddProgressionColumn('creature_onkill_reputation', 'patch', 'INT', '4125', 'creature_id');
+ALTER TABLE `creature_onkill_reputation`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`creature_id`, `patch`) USING BTREE;
 
 -- Creatures will change over time. This column helps with that.
 CALL AddProgressionColumn('creature_template', 'patch', 'INT', '4125', 'entry');
@@ -119,6 +146,20 @@ CALL AddProgressionColumn('gameobject_loot_template', 'patch', 'INT', '4125', 'I
 ALTER TABLE `gameobject_loot_template`
 	DROP PRIMARY KEY,
 	ADD PRIMARY KEY (`Entry`, `Item`, `patch`) USING BTREE;
+
+-- I'm not sure what columns to use here
+CALL AddProgressionColumn('gameobject_questender', 'min_patch', 'INT', '4125', 'quest');
+CALL AddProgressionColumn('gameobject_questender', 'max_patch', 'INT', '12340', 'min_patch');
+ALTER TABLE `gameobject_questender`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`id`, `quest`, `min_patch`, `max_patch`) USING BTREE;
+
+-- I'm not sure what columns to use here
+CALL AddProgressionColumn('gameobject_queststarter', 'min_patch', 'INT', '4125', 'quest');
+CALL AddProgressionColumn('gameobject_queststarter', 'max_patch', 'INT', '12340', 'min_patch');
+ALTER TABLE `gameobject_queststarter`
+	DROP PRIMARY KEY,
+	ADD PRIMARY KEY (`id`, `quest`, `min_patch`, `max_patch`) USING BTREE;
 
 -- Game objects will change over time. This column helps with that.
 CALL AddProgressionColumn('gameobject_template', 'patch', 'INT', '4125', 'entry');
@@ -246,8 +287,12 @@ To test for errors, run this after creating all columns
 UPDATE `conditions` SET `min_patch`=12340, `max_patch`=12340;
 UPDATE `creature` SET `min_patch`=12340, `max_patch`=12340;
 UPDATE `creature` SET `min_patch`=4125 WHERE `guid`=36625;
+UPDATE `creature_questender` SET `min_patch`=12340, `max_patch`=12340;
+UPDATE `creature_queststarter` SET `min_patch`=12340, `max_patch`=12340;
 UPDATE `gameobject` SET `min_patch`=12340, `max_patch`=12340;
 UPDATE `gameobject` SET `min_patch`=4125 WHERE `guid` IN (6781, 9263, 16735, 16736, 16737, 16738, 16740, 16741, 16742, 16743, 16969, 16970, 16971, 16972, 16973, 21607, 21611, 27142, 28288, 45612, 46424, 46425, 46429, 50455, 50456, 50457, 50459, 50460, 50461, 50462, 50463, 50464, 50465, 50466, 50467, 50468, 50469, 50470, 50471, 50472, 57571, 99774, 99775, 99776, 99777, 99778, 99779, 99780, 99781, 99782, 99783, 99784, 99896);
+UPDATE `gameobject_questender` SET `min_patch`=12340, `max_patch`=12340;
+UPDATE `gameobject_queststarter` SET `min_patch`=12340, `max_patch`=12340;
 UPDATE `linked_respawn` SET `patch`=12340;
 UPDATE `npc_trainer` SET `min_patch`=12340, `max_patch`=12340;
 UPDATE `npc_vendor` SET `min_patch`=12340, `max_patch`=12340;

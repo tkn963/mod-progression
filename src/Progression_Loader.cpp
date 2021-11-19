@@ -10,6 +10,7 @@ void AddProgressionItemsScripts();
 void AddProgressionLootScripts();
 void AddProgressionMapScripts();
 void AddProgressionNpcScripts();
+void AddProgressionPoolsScripts();
 void AddProgressionQuestsScripts();
 
 void Addmod_progressionScripts()
@@ -26,5 +27,6 @@ void Addmod_progressionScripts()
     AddProgressionLootScripts();
     AddProgressionMapScripts();
     AddProgressionNpcScripts();
+    AddProgressionPoolsScripts();
     AddProgressionQuestsScripts();
 }

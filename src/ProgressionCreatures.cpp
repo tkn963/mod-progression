@@ -27,12 +27,28 @@ class ProgressionCreatures : public WorldScript
                                         progression->getPatchId());
         }
 
+        void OnBeforeCreatureEquipTemplateQueried(std::string& query) override
+        {
+            query = Acore::StringFormat("SELECT CreatureID, ID, ItemID1, ItemID2, ItemID3 FROM creature_equip_template a "
+                                        "WHERE patch=(SELECT max(patch) FROM creature_equip_template b WHERE a.CreatureID = b.CreatureID && patch <= %u)",
+                                        progression->getPatchId());
+        }
+
         void OnBeforeCreatureFormationsQueried(std::string& query) override
         {
             query = Acore::StringFormat("SELECT leaderGUID, memberGUID, dist, angle, groupAI, point_1, point_2 FROM creature_formations "
                                         "LEFT OUTER JOIN creature ON creature_formations.leaderGUID = creature.guid "
                                         "WHERE %u BETWEEN creature.min_patch AND creature.max_patch "
                                         " ORDER BY leaderGUID",
+                                        progression->getPatchId());
+        }
+
+        void OnBeforeCreatureOnKillReputationQueried(std::string& query) override
+        {
+            query = Acore::StringFormat("SELECT creature_id, RewOnKillRepFaction1, RewOnKillRepFaction2, IsTeamAward1, MaxStanding1, "
+                                        "RewOnKillRepValue1, IsTeamAward2, MaxStanding2, RewOnKillRepValue2, TeamDependent "
+                                        "FROM creature_onkill_reputation a "
+                                        "WHERE patch=(SELECT max(patch) FROM creature_onkill_reputation b WHERE a.creature_id = b.creature_id && patch <= %u)",
                                         progression->getPatchId());
         }
 
@@ -45,13 +61,6 @@ class ProgressionCreatures : public WorldScript
                                         "PetSpellDataId, VehicleId, mingold, maxgold, AIName, MovementType, InhabitType, HoverHeight, HealthModifier, ManaModifier, ArmorModifier, "
                                         "ExperienceModifier, RacialLeader, movementId, RegenHealth, mechanic_immune_mask, spell_school_immune_mask, flags_extra, ScriptName "
                                         "FROM creature_template a WHERE patch=(SELECT max(patch) FROM creature_template b WHERE a.entry = b.entry && patch <= %u)",
-                                        progression->getPatchId());
-        }
-
-        void OnBeforePoolTemplateQueried(std::string& query) override
-        {
-            query = Acore::StringFormat("SELECT entry, max_limit FROM pool_template "
-                                        "WHERE %u BETWEEN min_patch AND max_patch",
                                         progression->getPatchId());
         }
 
